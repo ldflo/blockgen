@@ -1,0 +1,14 @@
+examples/py/todos.db
+
+# Python-generated files
+__pycache__/
+.pytest_cache/
+.tox/
+build/
+dist/
+wheels/
+*.egg-info
+*.py[oc]
+
+# Virtual environments
+.venv/

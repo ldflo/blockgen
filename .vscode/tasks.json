@@ -1,0 +1,32 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "blockgen: install-dependencies",
+            "type": "shell",
+            "command": "uv sync",
+        },
+        {
+            "label": "blockgen: pytest",
+            "type": "shell",
+            "command": "uv run pytest -x ./tests/",
+        },
+        {
+            "label": "blockgen: tox",
+            "type": "shell",
+            "command": "uv run tox",
+        },
+        {
+            "label": "blockgen: install",
+            "type": "shell",
+            "command": "uv pip install --force-reinstall .",
+        },
+        {
+            "label": "blockgen: publish",
+            "type": "shell",
+            "command": "uv run tox ; uv build ; uv publish",
+        },
+    ]
+}
