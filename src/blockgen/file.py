@@ -594,7 +594,7 @@ def write_and_reinject_blocks(
         You can disable these notifications with the environment variable `BLOCKGEN_SILENT="1"`
         or with `blockgen.options(silent=True)`.
     """
-    cfg = core.BLOCKGEN_OPTIONS.get()
+    cfg = core.current_options.get()
 
     try:
         if os.path.isfile(file):
@@ -755,7 +755,7 @@ def notify_modification_in_console(
         You can disable these notifications with the environment variable `BLOCKGEN_SILENT="1"`
         or with `blockgen.options(silent=True)`.
     """
-    cfg = core.BLOCKGEN_OPTIONS.get()
+    cfg = core.current_options.get()
 
     if cfg.get_silent() is True:
         return # Do not print any notification if silent mode is enabled

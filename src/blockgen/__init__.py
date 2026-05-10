@@ -7,7 +7,7 @@ from .core import (
     current_context,
     context,
     Options,
-    BLOCKGEN_OPTIONS,
+    current_options,
     options,
     get_env_BLOCKGEN_OPEN_MARKER_LITERAL,
     get_env_BLOCKGEN_CLOSE_MARKER_LITERAL,

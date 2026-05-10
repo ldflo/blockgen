@@ -1,7 +1,7 @@
 import blockgen
 
 def create_block(expression: str) -> blockgen.Block:
-    open_match = blockgen.BLOCKGEN_OPTIONS.get().get_block_regex().search(f"<<[ {expression} ]>>")
+    open_match = blockgen.current_options.get().get_block_regex().search(f"<<[ {expression} ]>>")
     block = blockgen.Block(open_match)
     blockgen.core._parse_block_name_args_kwargs(block, expression)
     return block

@@ -25,7 +25,7 @@ def has_blocks(
         You can change the marker literals used with the environment variables `BLOCKGEN_OPEN_MARKER_LITERAL="<<["` and `BLOCKGEN_CLOSE_MARKER_LITERAL="]>>"`
         or with `blockgen.options(open_marker_literal='<<[', close_marker_literal=']>>')`.
     """
-    cfg = core.BLOCKGEN_OPTIONS.get()
+    cfg = core.current_options.get()
     block_regex = cfg.get_block_regex()
     return block_regex.search(text) is not None
 
@@ -66,7 +66,7 @@ def parse_blocks(
         You can change the marker literals used with the environment variables `BLOCKGEN_OPEN_MARKER_LITERAL="<<["`, `BLOCKGEN_CLOSE_MARKER_LITERAL="]>>"`, and `BLOCKGEN_END_BLOCK_EXPRESSION="end"`
         or with `blockgen.options(open_marker_literal='<<[', close_marker_literal=']>>', end_block_expression='end')`.
     """
-    cfg = core.BLOCKGEN_OPTIONS.get()
+    cfg = core.current_options.get()
     block_regex = cfg.get_block_regex()
     end_block_expression = cfg.get_end_block_expression()
     current_block: Optional[core.Block] = None
@@ -371,7 +371,7 @@ def replace_blocks(
         You can disable the safeguard with the environment variable `BLOCKGEN_DISABLE_SAFEGUARD="1"`
         or with `blockgen.options(disable_safeguard=True)`.
     """
-    cfg = core.BLOCKGEN_OPTIONS.get()
+    cfg = core.current_options.get()
 
     # Verify that all specified blocks can be found in the text
     if not cfg.get_disable_safeguard():

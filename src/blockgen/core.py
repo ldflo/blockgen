@@ -320,7 +320,7 @@ class Options:
         return re.compile(rf"{re.escape(open_marker_literal)}\s*(.*?)\s*{re.escape(close_marker_literal)}", re.DOTALL)
 
 # ContextVar so nested/async contexts are isolated
-BLOCKGEN_OPTIONS: contextvars.ContextVar[Options] = contextvars.ContextVar("BLOCKGEN_OPTIONS", default=Options())
+current_options: contextvars.ContextVar[Options] = contextvars.ContextVar("current_options", default=Options())
 
 @contextlib.contextmanager
 def options(
@@ -359,7 +359,7 @@ def options(
             blocks = blockgen.file.get_blocks(file)
         ```
     """
-    cur_cfg = BLOCKGEN_OPTIONS.get()
+    cur_cfg = current_options.get()
     new_cfg = Options(
         open_marker_literal = open_marker_literal or cur_cfg.open_marker_literal,
         close_marker_literal = close_marker_literal or cur_cfg.close_marker_literal,
@@ -369,11 +369,11 @@ def options(
         notify_absolute_path = notify_absolute_path if notify_absolute_path is not None else cur_cfg.notify_absolute_path,
     )
 
-    token = BLOCKGEN_OPTIONS.set(new_cfg)
+    token = current_options.set(new_cfg)
     try:
         yield
     finally:
-        BLOCKGEN_OPTIONS.reset(token)
+        current_options.reset(token)
 
 def get_env_BLOCKGEN_OPEN_MARKER_LITERAL() -> Optional[str]:
     return os.environ.get("BLOCKGEN_OPEN_MARKER_LITERAL")
@@ -495,14 +495,14 @@ def _exception_unmatched_block_end_marker(end_match: re.Match[str]) -> Unmatched
     )
 
 def _exception_missing_block_end_marker(block: Block) -> MissingBlockEndMarkerError:
-    cfg = BLOCKGEN_OPTIONS.get()
+    cfg = current_options.get()
     line, col = _get_linecol(block.string, block.open_match.start())
     return MissingBlockEndMarkerError(
         f"Missing block end marker '{cfg.get_open_marker_literal()} {cfg.get_end_block_expression()} {cfg.get_close_marker_literal()}' for block '{block.open_match.group(0)}' at line {line}, column {col}"
     )
 
 def _exception_missing_spaces_between_block_markers(block: Block) -> MissingSpacesBetweenBlockMarkersError:
-    cfg = BLOCKGEN_OPTIONS.get()
+    cfg = current_options.get()
     line, col = _get_linecol(block.string, block.open_match.start())
     return MissingSpacesBetweenBlockMarkersError(
         f"Missing spaces between block markers '{block.open_match.string[block.open_extended_start:block.end_extended_end]}' at line {line}, column {col}" \
@@ -646,7 +646,7 @@ def _resolve_is_inline_block(block: Block) -> None:
         block.end_extended_start = block.string.rindex('\n', block.open_extended_end-1, end_start)+1
 
 def _resolve_inline_open_marker_extension(block: Block) -> Tuple[int, int]:
-    cfg = BLOCKGEN_OPTIONS.get()
+    cfg = current_options.get()
     close_marker_literal = cfg.get_close_marker_literal()
     string = block.string
     open_match_start = block.open_match.start()
@@ -682,7 +682,7 @@ def _resolve_inline_open_marker_extension(block: Block) -> Tuple[int, int]:
     return start, end
 
 def _resolve_inline_end_marker_extension(block: Block) -> Tuple[int, int]:
-    cfg = BLOCKGEN_OPTIONS.get()
+    cfg = current_options.get()
     open_marker_literal = cfg.get_open_marker_literal()
     string = block.string
     end_match_start = block.end_match.start()
@@ -728,7 +728,7 @@ def _extract_inline_block_content(block: Block) -> None:
     block.content = block_content
 
 def _extract_multiline_block_indentation(block: Block) -> None:
-    cfg = BLOCKGEN_OPTIONS.get()
+    cfg = current_options.get()
     close_marker_literal = cfg.get_close_marker_literal()
     string = block.string
 
