@@ -1,6 +1,6 @@
 [project]
 name = "blockgen"
-version = "1.0.0"
+version = "1.0.1"
 description = "Python3 module for reading/writing commment-delimited blocks in files"
 readme = "README.md"
 license = { text = "BSD" }
