@@ -211,7 +211,7 @@ class Context:
     filepath: Optional[Union[str, os.PathLike]] = None
 
 # ContextVar so nested/async contexts are isolated
-BLOCKGEN_CONTEXT: contextvars.ContextVar[Context] = contextvars.ContextVar("BLOCKGEN_CONTEXT", default=Context(block=None))
+current_context: contextvars.ContextVar[Context] = contextvars.ContextVar("current_context", default=Context(block=None))
 
 @contextlib.contextmanager
 def context(
@@ -240,17 +240,17 @@ def context(
             result = callback(block)
         ```
     """
-    cur_cfg = BLOCKGEN_CONTEXT.get()
+    cur_cfg = current_context.get()
     new_cfg = Context(
         block = block or cur_cfg.block,
         filepath = filepath or cur_cfg.filepath,
     )
 
-    token = BLOCKGEN_CONTEXT.set(new_cfg)
+    token = current_context.set(new_cfg)
     try:
         yield
     finally:
-        BLOCKGEN_CONTEXT.reset(token)
+        current_context.reset(token)
 
 ###
 ### Options

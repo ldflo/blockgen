@@ -4,7 +4,7 @@ from .core import (
     Block,
     callback,
     Context,
-    BLOCKGEN_CONTEXT,
+    current_context,
     context,
     Options,
     BLOCKGEN_OPTIONS,
@@ -54,7 +54,7 @@ current_filepath: Optional[Union[str, os.PathLike]]
 
 def __getattr__(name: str):
     if name == "current_filepath":
-        return BLOCKGEN_CONTEXT.get().filepath
+        return current_context.get().filepath
     if name == "current_block":
-        return BLOCKGEN_CONTEXT.get().block
+        return current_context.get().block
     raise AttributeError(f"module 'blockgen' has no attribute '{name}'")
