@@ -787,7 +787,7 @@ If the file content is the same, the file is left unchanged to avoid unnecessary
 Parameters:
 - `file: Union[str, os.PathLike]`: The file containing the blocks to update.
 - `blocks: dict[str, Union[str, FunctionType, object, Type, None]]`: See [`blockgen.string.set_blocks`](#blockgenstringset_blockstext-blocks) for the full description.
-- `encoding: Optional[str]`: The encoding used when writing the file.
+- `encoding: Optional[str]`: The encoding used when reading and writing the file.
 - `newline: Optional[str]`: The newline character(s) used when writing the file.
 
 Returns:
@@ -819,7 +819,7 @@ You can disable the safeguard with the environment variable `BLOCKGEN_DISABLE_SA
 Parameters:
 - `file: Union[str, os.PathLike]`: The file containing the blocks to update.
 - `blocks: dict[str, Union[str, None]]`: See [`blockgen.string.replace_blocks`](#blockgenstringreplace_blockstext-blocks) for the full description.
-- `encoding: Optional[str]`: The encoding used when writing the file.
+- `encoding: Optional[str]`: The encoding used when reading and writing the file.
 - `newline: Optional[str]`: The newline character(s) used when writing the file.
 
 Returns:
@@ -846,7 +846,7 @@ If the file content is the same, the file is left unchanged to avoid unnecessary
 
 Parameters:
 - `file: Union[str, os.PathLike]`: The file containing the block markers to remove.
-- `encoding: Optional[str]`: The encoding used when writing the file.
+- `encoding: Optional[str]`: The encoding used when reading and writing the file.
 - `newline: Optional[str]`: The newline character(s) used when writing the file.
 
 Returns:
@@ -879,7 +879,7 @@ blockgen.file.replace_blocks(file, old_blocks)
 Parameters:
 - `file: Union[str, os.PathLike]`: The file to write to and reinject blocks into.
 - `text: str`: The text to write to the file.
-- `encoding: Optional[str]`: The encoding used when writing the file.
+- `encoding: Optional[str]`: The encoding used when reading and writing the file.
 - `newline: Optional[str]`: The newline character(s) used when writing the file.
 - `mkdir: bool`: If `True` (default), creates parent directories of the file if they do not exist.
 

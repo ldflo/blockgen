@@ -231,7 +231,7 @@ def set_blocks(
             - `None`: leaves the block content unchanged
             - A `str`: used directly as the new block content
         encoding: Optional[str]
-            The encoding used when writing the file.
+            The encoding used when reading and writing the file.
         newline: Optional[str]
             The newline character(s) used when writing the file.
 
@@ -363,7 +363,7 @@ def replace_blocks(
 
             The value `None` leaves the block content unchanged.
         encoding: Optional[str]
-            The encoding used when writing the file.
+            The encoding used when reading and writing the file.
         newline: Optional[str]
             The newline character(s) used when writing the file.
 
@@ -445,7 +445,7 @@ def remove_markers(
         file: Union[str, os.PathLike]
             The file containing the block markers to remove.
         encoding: Optional[str]
-            The encoding used when writing the file.
+            The encoding used when reading and writing the file.
         newline: Optional[str]
             The newline character(s) used when writing the file.
 
@@ -534,7 +534,7 @@ def write_and_reinject_blocks(
         text: str
             The text to write to the file.
         encoding: Optional[str]
-            The encoding used when writing the file.
+            The encoding used when reading and writing the file.
         newline: Optional[str]
             The newline character(s) used when writing the file.
         mkdir: bool
@@ -642,7 +642,7 @@ def atomic_write(
         text: str
             The text to write to the file.
         encoding: Optional[str]
-            The encoding used when writing the file.
+            The encoding used when reading and writing the file.
         newline: Optional[str]
             The newline character(s) used when writing the file.
         mkdir: bool
@@ -686,7 +686,7 @@ def atomic_write(
     st = None
     try:
         st = filepath.stat()
-        with filepath.open("r", encoding=encoding, newline=newline) as f:
+        with filepath.open("r", encoding=encoding) as f:
             if f.read() == text:
                 notify_modification_in_console(file, file_created=None)
                 return None # No file modification (mtime unchanged)
