@@ -2,7 +2,7 @@
 
 This example demonstrates how to use `blockgen` to inject content inside Markdown files.
 
-Launching [`script.py`](script.py) will parse the content of [`src/blockgen/string.py`](../src/blockgen/string.py) and [`src/blockgen/file.py`](../src/blockgen/file.py) to create the following links to all the functions defined in these files:
+Launching [`script.py`](script.py) will parse the content of [`src/blockgen/string.py`](../../src/blockgen/string.py) and [`src/blockgen/file.py`](../../src/blockgen/file.py) to create the following links to all the functions defined in these files:
 
 ## String functions
 <!-- <<[ string_links ]>> -->
