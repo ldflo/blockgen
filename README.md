@@ -12,7 +12,7 @@ $ pip install blockgen
 
 ## Reading blocks
 
-Blocks are sections of a file delimited by the `<<[ block_name ]>>` and `<<[ end ]>>` markers :
+Blocks are sections of a file delimited by the `<<[ block_name ]>>` and `<<[ end ]>>` markers:
 
 ```cpp
 // main.cpp
@@ -28,7 +28,7 @@ int main() {
 }
 ```
 
-...whose content can be easily retrieved with the `get_blocks` function :
+...whose content can be easily retrieved with the `get_blocks` function:
 
 ```python
 import blockgen
@@ -40,7 +40,7 @@ assert blocks["block2"] == '"Hello world !"'
 
 ## Writing blocks
 
-The content of the blocks can also be modified with the `set_blocks` function :
+The content of the blocks can also be modified with the `set_blocks` function:
 
 ```python
 import blockgen
@@ -52,7 +52,7 @@ new_blocks = {
 blockgen.file.set_blocks("/path/to/main.cpp", new_blocks)
 ```
 
-...resulting in the following file :
+...resulting in the following file:
 
 ```cpp
 // main.cpp
@@ -70,7 +70,7 @@ int main() {
 
 ## Reinjecting blocks
 
-Blocks can be used to inject generated sections inside handwritten files, but the other way around is also possible: you can maintain handwritten sections inside generated files using the `write_and_reinject_blocks` function :
+Blocks can be used to inject generated sections inside handwritten files, but the other way around is also possible: you can maintain handwritten sections inside generated files using the `write_and_reinject_blocks` function:
 
 ```python
 import blockgen
@@ -86,7 +86,7 @@ void function_1() {
 blockgen.file.write_and_reinject_blocks("/path/to/utils.cpp", file_content)
 ```
 
-...which generates the following file :
+...which generates the following file:
 
 ```cpp
 // utils.cpp
@@ -100,7 +100,7 @@ void function_1() {
 
 The file can then be modified by hand, and these handwritten sections will be preserved across future generations.
 
-This means we can modify how the file is generated and execute `write_and_reinject_blocks` a second time :
+This means we can modify how the file is generated and execute `write_and_reinject_blocks` a second time:
 
 ```python
 import blockgen
@@ -121,7 +121,7 @@ void function_2() {
 blockgen.file.write_and_reinject_blocks("/path/to/utils.cpp", file_content)
 ```
 
-...while still preserving the sections written by hand so far :
+...while still preserving the sections written by hand so far:
 
 ```cpp
 // utils.cpp
@@ -140,7 +140,7 @@ void function_2() {
 
 This technique allows to seamlessly maintain handwritten code and generated code together in the same file, compared to traditionally having the generated code and handwritten code in separate files.
 
-Under the hood, `write_and_reinject_blocks` is equivalent to :
+Under the hood, `write_and_reinject_blocks` is equivalent to:
 
 ```python
 import blockgen
@@ -163,7 +163,7 @@ If some of your scripts require some additional dependencies, such as JSON files
 
 ## Integration with CI pipelines
 
-In your CI pipeline (e.g. GitHub Actions, GitLab CI, Jenkins, ...), it is recommended for your CI job to check for source divergence after executing the scripts, and abort the job if any divergence is detected. For example with Jenkins, you can easily do that at the end of your Python scripts :
+In your CI pipeline (e.g. GitHub Actions, GitLab CI, Jenkins, ...), it is recommended for your CI job to check for source divergence after executing the scripts, and abort the job if any divergence is detected. For example with Jenkins, you can easily do that at the end of your Python scripts:
 
 ```python
 import os

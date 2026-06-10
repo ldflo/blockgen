@@ -139,7 +139,7 @@ See the [Marker literals](#marker-literals) section for more information.
 
 ## Indentation
 
-For multiline blocks, the indentation of the block content is automatically adjusted based on the open marker location and its preceding comment characters :
+For multiline blocks, the indentation of the block content is automatically adjusted based on the open marker location and its preceding comment characters:
 
 ```python
 import blockgen
