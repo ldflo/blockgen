@@ -1005,7 +1005,7 @@ text = """
 // <<[ end ]>>
 """
 
-# Raises an error, content of "block1" will be lost
+# ❌ Raises an error, content of "block1" will be lost
 blockgen.file.write_and_reinject_blocks("/path/to/file.txt", text)
 ```
 
@@ -1017,13 +1017,13 @@ If you really intend to get rid of the existing block contents, you can disable 
 import os
 os.environ["BLOCKGEN_DISABLE_SAFEGUARD"] = "1"
 
-# "block1" is purposely lost, no error is raised
+# ✅ "block1" is purposely lost, no error is raised
 blockgen.file.write_and_reinject_blocks("/path/to/file.txt", text)
 
 ### Example 2
 
 with blockgen.options(disable_safeguard=True):
-    # "block1" is purposely lost, no error is raised
+    # ✅ "block1" is purposely lost, no error is raised
     blockgen.file.write_and_reinject_blocks("/path/to/file.txt", text)
 ```
 
