@@ -4,6 +4,8 @@
 
 **blockgen** can be seen as a _preprocessor_ for most file formats accepting comments (e.g. `.cpp`, `.html`, `.md`, `.py`, ...).
 
+![](https://raw.githubusercontent.com/ldflo/blockgen/master/docs/demo.gif)
+
 ## Installation
 
 ```shell
